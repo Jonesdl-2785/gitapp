@@ -32,18 +32,17 @@ class App extends Component {
         dispatch({type: 'UPDATE_REPOS', repos: res})
       })
     }
-    /*onRepoSearch = () => {
+    onGetEvent = () => {
       let {dispatch} = this.props;
-      let {search} = this.props.search;
-      fetch(`https://api.github.com/search/repositories?q=` +
-              `&type=Repositories&sort=stars&per_page=10`)
+      let {events_url} = this.props.search;
+      fetch(`https://api.github.com/events/`)
         .then(res => {
           return res.json()
         })
         .then(res => {
-          dispatch({type: 'UPDATE_SEARCH', search: res})
+          dispatch({type: 'UPDATE_EVENTS', events: res})
         })
-    }*/
+    }
 
     render() {
       let {userprofile} = this.props;
@@ -68,6 +67,8 @@ class App extends Component {
         <br />
         <button className='getrepo' onClick={this.onGetRepo}>Get Repos</button>
         {repos}
+        <br />
+        <button className='getevents' onClick={this.onGetEvents}>Events</button>
       </div>
     );
   }
@@ -78,7 +79,7 @@ const mapStateToProps = (state) => {
     username: state.username,
     userprofile: state.userprofile,
     repos: state.repos,
-    search: state.search
+    events: state.events
   }
 }
 
